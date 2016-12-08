@@ -19,6 +19,9 @@ void print_list(node_t*);
 void pushToEnd(node_t*, int);
 void pushToFront(node_t**, int);
 int remove_last(node_t*);
+int remove_by_index(node_t**, int);
+
+
 
 int main()
 {
