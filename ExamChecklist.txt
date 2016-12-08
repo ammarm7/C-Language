@@ -1,0 +1,12 @@
+[x] Structs
+[x] Typedefs with structs 
+[ ] Pointers
+[ ] Double Pointers
+[x] MakeFiles
+[x] Distributing Source Files + Header files
+[ ] Singly LL 
+[ ] Singly LL with Tail
+[ ] Doubly LL 
+[ ] Dynamic Arr
+[ ] Bin, Hex, Oct Arithmetic 
+[ ] Input/Output fn's 
