@@ -5,7 +5,7 @@
 typedef struct node {
 	int val;
 	struct node* next;	//You can refrence a structure to itself recursively as long as you use the structures name and NOT th etype def. 
-} ndoe_t;
+} node_t;
 
 
 /*Fn prototypes*/
@@ -63,20 +63,61 @@ void pushToFront(node_t** head, int val)	//We use a dp in this case because we a
 	node_t* new_node;
 	new_node = malloc(sizeof(node_t));
 
-	new_node->val = val;	//ATM we have created an arbitrary "new_node" nodetype and we are setting its val to the param entry. 
+	new_node->val = val;	//ATM we have created an arbitrary "new_node" nodetype and we are setting its val to the param entr
 
 	new_node->next = *head;
 	*head = new_node;
 }	
 
-/*
+/* Removing the first item (popping from the list)
+ * To pop a var, we will need to reverse this action:
+ * 1. Take the next item that the head points to and save it. 
+ * 2. Free the head item
+ * 3. Set the head to be the next item that we've stored on the side.*/
 
+int pop(node_t** head) {	//Note this is a dp because we will again be manipulating it.
+       int retval = -1;
 
+	node_t* next_node = NULL;	
 
+	//Error handling in the case that we have an empty list. 
+	if (*head == NULL) { 
+		return -1;
+	}
 
+	next_node = (*head)->next;
+	retval = (*head)->val;
+	free(*head);
+	*head = next_node;
 
+	return retval;	//Success! 
 
+}
 
+int remove_last(node_t* head){
+	int retval = 0;
+	//We must consider that this may be the only item in the list!! 
+	if (head->next == NULL) {
+		retval = head->val;
+		free(head);
+		return retval; //In this case we have escentially deleted the list. 
+	}
+
+	//If the list contains >1 node than we must traverse to find the last node. 
+	node_t* current = head;
+	while (current->next->next != NULL) {	//This puts us in the second last pos from the end. 
+		current = current->next;
+	}
+
+	retval = current->next->val;
+	free(current->next);
+	current->next = NULL;
+	return retval; 	//Returning the last node. 
+}
+
+/*Removing a specific item: 
+ *
+ * To remove a specific item from the list, either from the beginnign of the list or by its value, we will need to go over all the items, continously looing ahead to f*/
 
 
 
