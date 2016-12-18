@@ -1,3 +1,6 @@
+/* [ ] Make this a doubly ll */
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -28,7 +31,7 @@ int main()
 	head->next = malloc(sizeof(node_t));
 	head->next->val = 2;
 	head->next->next = NULL;
-	
+
 	//Obviously it does not make sense to keep going like this, so we will begin to creat LL fns	
 
 	return 0;
@@ -50,7 +53,7 @@ void pushToEnd(node_t* head, int val) {
 	while (current->next != NULL) {
 		current = current->next; 
 	}
-	
+
 	/*Now that we have traversed to the end of the ll we can add a new var*/
 	current->next = malloc(sizeof(node_t));
 	current->next->val = val;
@@ -76,7 +79,7 @@ void pushToFront(node_t** head, int val)	//We use a dp in this case because we a
  * 3. Set the head to be the next item that we've stored on the side.*/
 
 int pop(node_t** head) {	//Note this is a dp because we will again be manipulating it.
-       int retval = -1;
+	int retval = -1;
 
 	node_t* next_node = NULL;	
 
@@ -117,7 +120,56 @@ int remove_last(node_t* head){
 
 /*Removing a specific item: 
  *
- * To remove a specific item from the list, either from the beginnign of the list or by its value, we will need to go over all the items, continously looing ahead to f*/
+ * 	To remove a specific item from the list, either from the beginning of the list or by its value, we will need to go over all the items, continously looking ahead to find out if we've reached the node before the item we wish to remove. This is becuase we need ot change the location to where the prev node points to as well. 
+ *
+ * 	The algoritem is as follows:
+ * 	1. Iterate to the node before the node we wish to delete 
+ * 	2. Save the node we wish to delete in a temp pointer 
+ * 	3. Set the previous nodes next pointer to the pointer to the node after n'th node we wish to delete
+ * 	4. Delete the node usign the temp pointer
+ *
+ * 	(Also there are edge case which will need to be taken care of)
+ */
+
+
+int remove_by_index(node_t** head, int n)
+{ 
+	int i = 0;
+	int retval = 1;
+	node_t* current = *head;
+	node_t* temp_node = NULL;	//Arbitrary temp node for which we will make the n'th node which needs to be deleted. 
+
+	/*This is the case where the user wants to remove the fist element */
+	if (n == 0) {
+		return pop(head);
+	}
+
+	//This is how we will save the n'th node	
+	for (int i = 0; i<n-1; i++) {
+		//covers the case that the user asked to del some node that doesn't exist
+		if (current->next == NULL) {
+			return -1;
+		}		
+		current = current->next;	//Initializing current to the node before the one the user asked to del
+	}
+
+	temp_node = current->next;	//This is the one the user want sto del
+	retval = temp_node->val;
+	current->next = temp_node->next;
+	free(temp_node);
+
+	return retval;
+
+}
+
+
+
+
+
+
+
+
+
 
 
 
