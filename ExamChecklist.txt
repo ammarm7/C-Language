@@ -10,3 +10,4 @@
 [ ] Dynamic Arr
 [ ] Bin, Hex, Oct Arithmetic 
 [ ] Input/Output fn's 
+[ ] Heap, Global, ets.. What is responsible for what..
